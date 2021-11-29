@@ -1,10 +1,17 @@
 import tarjetacredito 
 import usuario 
 
-usuario1 = usuario.Usuario("Daniel")
-print(usuario1.nombre)
+# Crear usuario
+nombre = input('Ingrese su nombre: ')
+usuario1 = usuario.Usuario(nombre)
 
+# Agregar 3 tarjetas
 usuario1.agregar_tarjeta()
-print(f'{usuario1.nombre}: {usuario1.tarjetas}')
-usuario1.borrar_tarjeta("Visa")
-print(f'{usuario1.nombre}: {usuario1.tarjetas}')
+usuario1.agregar_tarjeta()
+usuario1.agregar_tarjeta()
+
+# Elimina la 3er tarjeta
+usuario1.borrar_tarjeta("Tarjeta3")
+
+# Imprime las tarjetas del usuario
+usuario1.imprimir_tarjetas()

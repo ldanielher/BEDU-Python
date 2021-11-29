@@ -28,6 +28,7 @@ class TarjetaCredito():
 		else:	
 			nuevos_cargos = input("Ingresa los nuevos cargos: ")
 			nuevos_cargos = float(nuevos_cargos)
+			print()
 
 			#Crear diccionario y agregar datos
 			tarjeta = dict()
