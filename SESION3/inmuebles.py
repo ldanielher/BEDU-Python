@@ -23,7 +23,7 @@ def imprime_lista(inmuebles):
 
 def lee_palabras():
     pal = input("Ingrese los tipos de inmuebles separado por un espacio: ")
-    tipo_inm: list = pal.split()
+    tipo_inm: list = pal.split() 
 
     return tipo_inm
 
