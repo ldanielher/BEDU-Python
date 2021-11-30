@@ -1,55 +1,71 @@
 import tarjetaservicios as ts
 import tarjeta as tj
 from tarjetadb import TarjetaDB
+import usuario as us
 import os
+import time
 
 ###############################
 # Desarrollo 1: Captura 1 tarjeta
+# print('# Desarrollo 1: Captura 1 tarjeta de')
 # tarjetaservicios1 = ts.Tarjeta_de_servicios()
 # tarjetaservicios1.captura_nueva_deuda()
 # tarjetaservicios1.generar_reporte()
 
 ###############################
 # Desarrollo 2: Ingresar tarjetas a la BD
-# Se conecta y Crea la tabla
-database = "test.sqlite3"
+def imprimir_menu():
+    """ Imprime menú """
+    print("\nSeleccione una opción")
+    print("-----------------------------------------")
+    print("1. Agregar tarjeta")
+    print("2. Borrar tarjeta")
+    print("3. Listar tarjetas")
+    print("0. Salir")
+    print("-----------------------------------------")
+    opcion = input("Opción: ")
+    return opcion
+
+# Inicializa varibales
+miopcion = 1
+database = "tarjetas.sqlite3"
 tabla = "Tarjeta"
-campos = (
-        "nombre VARCHAR(20)",
-        "tasa float",
-        "deuda float",
-        "pago float",
-        "cargos float",
-        "deuda_pago float",
-        "interes_mes float",
-        "deuda_recalculada float",
-        "nueva_deuda float"
-    )
 archivos_db = TarjetaDB(database)
-archivos_db.crear_tabla(tabla, campos)
 
-#Inserta los datos
-tarjeta1 = tj.Tarjeta()
-registros1 = list(tarjeta1.datos.values())
-archivos_db.insertar(tabla, registros1)
+while miopcion !="0":
+    # Muestra Menu
+    miopcion = imprimir_menu()
 
-tarjeta2 = tj.Tarjeta()
-registros2 = list(tarjeta2.datos.values())
-archivos_db.insertar(tabla, registros2)
+    if miopcion == "1":
+        #Solicita e inserta los datos
+        tarjeta1 = tj.Tarjeta()
+        registros1 = list(tarjeta1.datos.values())
+        archivos_db.insertar(tabla, registros1)
+        print(f'Tarjeta {registros1[0]} creada!')
+        time.sleep(1)
+        os.system("cls")
 
-tarjeta3 = tj.Tarjeta()
-registros3 = list(tarjeta3.datos.values())
-archivos_db.insertar(tabla, registros3)
+    if miopcion == "2":
+        #Solicita nombre tarjeta y la borra
+        registro2 = input("Digite el nombre de tarjeta a borrar: ")
+        archivos_db.borrar(tabla, registro2)
+        print(f'Tarjeta {registro2} borrada!')
+        time.sleep(1)
+        os.system("cls")
 
-# Imprime lista de tarjetas
-print('\nLista de tarjetas en la base de datos:')
-print('--------------------------------------------------')
-print('Nombre     Tasa(%)    Deuda     Pago Nuevos Cargos')
-print('--------------------------------------------------')
-for reg in archivos_db.listar_todo(tabla):
-    print( "{:10} {:7} {:8} {:8} {:13}".format(*reg) )
+    if miopcion == "3":
+        # Imprime lista de tarjetas
+        print('\nLista de tarjetas en la base de datos:')
+        print('--------------------------------------------------')
+        print('Nombre     Tasa(%)    Deuda     Pago Nuevos Cargos')
+        print('--------------------------------------------------')
+        for reg in archivos_db.listar_todo(tabla):
+            print( "{:10} {:7} {:8} {:8} {:13}".format(*reg) )
+        
+        salir = input("\nPresione cualquier tecla para volver al menu...")
+        os.system("cls")
 
 # Cierra la conexión
 archivos_db.cerrar()
-if os.path.exists(database):
-    os.remove(database)
+# if os.path.exists(database):
+#     os.remove(database)

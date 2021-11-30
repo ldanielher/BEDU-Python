@@ -1,4 +1,4 @@
-import tarjetacredito as tc
+import tarjeta as tc
 
 class Usuario():
     """ Clase que genera un objeto tipo Usuario """
@@ -48,8 +48,10 @@ class Usuario():
             print("-----------------------------------------")
             print(f"Nueva deuda del mes:       {round(i['nueva_deuda'],2)} \n")	
 
-    def get_nombre(self):
-        return Usuario.nombre
+    
+
+
+
         
 
 

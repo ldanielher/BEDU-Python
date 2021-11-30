@@ -26,10 +26,35 @@ class TarjetaDB():
         registro1 = tuple(registros)
         self.cur.execute(sql, registro1)
         self.conn.commit()
+    
+    def borrar(self, tabla, nombre):
+        """Insertar registros en tabla"""
+        sql = f'delete from {tabla} WHERE nombre = "{nombre}"'
+        self.cur.execute(sql)
+        self.conn.commit()
 
     def listar_todo(self, tabla):
         """Regresa la lista de todos los registros de la tabla"""
         sql = f"SELECT * FROM {tabla}"
+        self.cur.execute(sql)
+        res = self.cur.fetchall()
+        return res
+
+    def borrar_tarj_usuario(self, tabla, usuario, nombre):
+        """Insertar registros en tabla"""
+        sql = f'delete from {tabla} WHERE usuario = "{usuario}" and nombre = "{nombre}"'
+        self.cur.execute(sql)
+        self.conn.commit()
+
+    def borrar_usuario(self, tabla, usuario):
+        """Insertar registros en tabla"""
+        sql = f'delete from {tabla} WHERE usuario = "{usuario}"'
+        self.cur.execute(sql)
+        self.conn.commit()
+
+    def listar_todo_usuario(self, tabla, usuario):
+        """Regresa la lista de todos los registros de la tabla"""
+        sql = f'SELECT * FROM {tabla} WHERE usuario = "{usuario}"'
         self.cur.execute(sql)
         res = self.cur.fetchall()
         return res
